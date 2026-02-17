@@ -62,15 +62,19 @@ const server = http.createServer((req, res) => {
     // console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
     let path = req.url;
     if (path === "/" || path.toLocaleLowerCase() === "/home") {
+        res.writeHead(200, { "Content-Type": "text/plain" }); // sets the HTTP status code to 200 (OK) and the content type to plain text
         res.end("You are on the home page!"); // sends a response to the client with the message "You are on the home page!"
 
     } else if (path.toLocaleLowerCase() === "/about") {
+        res.writeHead(200, { "Content-Type": "text/plain" }); // sets the HTTP status code to 200 (OK) and the content type to plain text
         res.end("You are on the about page!"); // sends a response to the client with the message "You are on the about page!"
 
     } else if (path.toLocaleLowerCase() === "/contact") {
+        res.writeHead(200, { "Content-Type": "text/plain" }); // sets the HTTP status code to 200 (OK) and the content type to plain text
         res.end("You are on the contact page!"); // sends a response to the client with the message "You are on the contact page!"
 
     } else {
+        res.writeHead(404, { "Content-Type": "text/plain" }); // sets the HTTP status code to 404 (Not Found) and the content type to plain text
         res.end("Page not found!"); // sends a response to the client with the message "Page not found!" if the URL does not match any of the specified paths   
     }
 
