@@ -1,5 +1,6 @@
 const readline = require("readline"); // used for reading input from the command line
 const fs = require("fs"); // used for file system operations, such as reading and writing files
+const http = require("http"); // used for creating an HTTP server and making HTTP requests
 
 
 // A
@@ -53,3 +54,15 @@ fs/* .readFile('./files/start.txt', 'utf-8', (err, data) => { // reads the conte
 }); // prints the content of the file to the console
 
 console.log("This will be printed before the file content is read."); */ // demonstrates that the file reading is asynchronous by printing this message before the file content is read
+
+
+// D
+const server = http.createServer((req, res) => {
+    res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
+    console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
+
+}); // creates an HTTP server that listens for incoming requests and sends responses
+
+server.listen(3000, '127.0.0.1', () => {
+    console.log("Server is started!"); // starts the server and logs a message to the console indicating that the server is running
+});
