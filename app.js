@@ -58,8 +58,21 @@ console.log("This will be printed before the file content is read."); */ // demo
 
 // D
 const server = http.createServer((req, res) => {
-    res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
-    console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
+    // res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
+    // console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
+    let path = req.url;
+    if (path === "/" || path.toLocaleLowerCase() === "/home") {
+        res.end("You are on the home page!"); // sends a response to the client with the message "You are on the home page!"
+
+    } else if (path.toLocaleLowerCase() === "/about") {
+        res.end("You are on the about page!"); // sends a response to the client with the message "You are on the about page!"
+
+    } else if (path.toLocaleLowerCase() === "/contact") {
+        res.end("You are on the contact page!"); // sends a response to the client with the message "You are on the contact page!"
+
+    } else {
+        res.end("Page not found!"); // sends a response to the client with the message "Page not found!" if the URL does not match any of the specified paths   
+    }
 
 }); // creates an HTTP server that listens for incoming requests and sends responses
 
