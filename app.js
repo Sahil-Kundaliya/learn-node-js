@@ -29,7 +29,7 @@ fs.writeFileSync('./files/output.txt', modifiedContent); // writes the content o
 console.log("File has been written successfully!"); // prints a success message to the console */
 
 // C
-fs/* .readFile('./files/start.txt', 'utf-8', (err, data) => { // reads the content of the file asynchronously and returns it as a string
+/* fs.readFile('./files/start.txt', 'utf-8', (err, data) => { // reads the content of the file asynchronously and returns it as a string
     if (err) {
         console.error("Error reading file:", err); // logs an error message if there is an error reading the file
         return;
@@ -57,6 +57,8 @@ console.log("This will be printed before the file content is read."); */ // demo
 
 
 // D
+let products = JSON.parse(fs.readFileSync('./data/product.json', 'utf-8')); // reads the content of the product.json file synchronously and returns it as a string
+
 const server = http.createServer((req, res) => {
     // res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
     // console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
@@ -72,6 +74,12 @@ const server = http.createServer((req, res) => {
     } else if (path.toLocaleLowerCase() === "/contact") {
         res.writeHead(200, { "Content-Type": "text/plain" }); // sets the HTTP status code to 200 (OK) and the content type to plain text
         res.end("You are on the contact page!"); // sends a response to the client with the message "You are on the contact page!"
+
+    } else if (path.toLocaleLowerCase() === "/products") {
+
+        res.writeHead(200, { "Content-Type": "application/json" }); // sets the HTTP status code to 200 (OK) and the content type to JSON
+        res.end(JSON.stringify(products)); // sends a response to the client with the content of the product.json file
+
 
     } else {
         res.writeHead(404, { "Content-Type": "text/plain" }); // sets the HTTP status code to 404 (Not Found) and the content type to plain text
