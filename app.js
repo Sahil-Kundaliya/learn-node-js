@@ -60,7 +60,14 @@ console.log("This will be printed before the file content is read."); */ // demo
 // D
 let products = JSON.parse(fs.readFileSync('./data/product.json', 'utf-8')); // reads the content of the product.json file synchronously and returns it as a string
 
-const server = http.createServer((req, res) => {
+// const server = http.createServer((req, res) => {
+
+// }); // creates an HTTP server that listens for incoming requests and sends responses
+
+
+const server = http.createServer();
+
+server.on("request", (req, res) => {
     // res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
     // console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
 
