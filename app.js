@@ -118,3 +118,25 @@ myEmitter.on("newUserCreated", (user) => { // listens for the "newUserCreated" e
 });
 
 myEmitter.emit("newUserCreated", { name: "John Doe" }); // emits the "newUserCreated" event with a user object as an argument, which triggers the callback function and logs the message to the console
+
+
+
+// F
+
+server.on("request", (req, res) => {
+    let rs = fs.createReadStream('./files/input.txt', 'utf-8'); // creates a readable stream from the largefile.txt file
+
+    rs.on("data", (chunk) => { // listens for the "data" event on the readable stream and executes the callback function when a chunk of data is available
+        res.write(chunk); // writes the chunk of data to the response object, which sends it to the client
+    });
+
+    rs.on("error", (err) => { // listens for the "error" event on the readable stream and executes the callback function when an error occurs
+        console.error("Error reading file:", err);
+        res.writeHead(500, { "Content-Type": "text/plain" }); // sets the HTTP status code to 500 (Internal Server Error) and the content type to plain text
+        res.end("Error reading file!"); // sends a response to the client with the message "Error reading file!" if there is an error reading the file
+    });
+
+    rs.on("end", () => { // listens for the "end" event on the readable stream and executes the callback function when the end of the file is reached
+        res.end(); // ends the response to the client, indicating that all data has been sent
+    });
+}); // listens for incoming requests to the server and executes the callback function when a request is received
