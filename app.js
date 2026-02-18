@@ -2,6 +2,9 @@ const readline = require("readline"); // used for reading input from the command
 const fs = require("fs"); // used for file system operations, such as reading and writing files
 const http = require("http"); // used for creating an HTTP server and making HTTP requests
 const url = require("url"); // used for parsing URLs and working with URL components
+// const event = require("events"); // used for working with events and creating event emitters
+
+const user = require("./modules/user"); // imports the User class from the user.js module
 
 
 // A
@@ -104,3 +107,14 @@ server.on("request", (req, res) => {
 server.listen(3000, '127.0.0.1', () => {
     console.log("Server is started!"); // starts the server and logs a message to the console indicating that the server is running
 });
+
+
+// E
+
+let myEmitter = new user(); // creates a new event emitter object
+
+myEmitter.on("newUserCreated", (user) => { // listens for the "newUserCreated" event and executes the callback function when the event is emitted
+    console.log(`A new user has been created: ${user.name}`); // logs a message to the console with the name of the new user
+});
+
+myEmitter.emit("newUserCreated", { name: "John Doe" }); // emits the "newUserCreated" event with a user object as an argument, which triggers the callback function and logs the message to the console
