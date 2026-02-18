@@ -1,6 +1,7 @@
 const readline = require("readline"); // used for reading input from the command line
 const fs = require("fs"); // used for file system operations, such as reading and writing files
 const http = require("http"); // used for creating an HTTP server and making HTTP requests
+const url = require("url"); // used for parsing URLs and working with URL components
 
 
 // A
@@ -62,7 +63,10 @@ let products = JSON.parse(fs.readFileSync('./data/product.json', 'utf-8')); // r
 const server = http.createServer((req, res) => {
     // res.end("Hello, World!"); // sends a response to the client with the message "Hello, World!"
     // console.log(`Received request for ${req.url}`); // logs the URL of the incoming request to the console
-    let path = req.url;
+
+    let { query, pathname: path } = url.parse(req.url, true); // parses the URL of the incoming request and returns an object containing the query parameters
+
+    // let path = pathname;
     if (path === "/" || path.toLocaleLowerCase() === "/home") {
         res.writeHead(200, { "Content-Type": "text/plain" }); // sets the HTTP status code to 200 (OK) and the content type to plain text
         res.end("You are on the home page!"); // sends a response to the client with the message "You are on the home page!"
@@ -76,10 +80,12 @@ const server = http.createServer((req, res) => {
         res.end("You are on the contact page!"); // sends a response to the client with the message "You are on the contact page!"
 
     } else if (path.toLocaleLowerCase() === "/products") {
-
-        res.writeHead(200, { "Content-Type": "application/json" }); // sets the HTTP status code to 200 (OK) and the content type to JSON
-        res.end(JSON.stringify(products)); // sends a response to the client with the content of the product.json file
-
+        if (!query.id) { // checks if the query parameter "id" is present in the URL
+            res.writeHead(200, { "Content-Type": "application/json" }); // sets the HTTP status code to 200 (OK) and the content type to JSON
+            res.end(JSON.stringify(products)); // sends a response to the client with the content of the product.json file
+        } else {
+            res.end(JSON.stringify(products.find(p => p.id === Number(query.id)))); // sends a response to the client with the product that matches the id query parameter
+        }
 
     } else {
         res.writeHead(404, { "Content-Type": "text/plain" }); // sets the HTTP status code to 404 (Not Found) and the content type to plain text
