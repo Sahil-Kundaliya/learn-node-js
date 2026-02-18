@@ -111,18 +111,18 @@ server.listen(3000, '127.0.0.1', () => {
 
 // E
 
-let myEmitter = new user(); // creates a new event emitter object
+/* let myEmitter = new user(); // creates a new event emitter object
 
 myEmitter.on("newUserCreated", (user) => { // listens for the "newUserCreated" event and executes the callback function when the event is emitted
     console.log(`A new user has been created: ${user.name}`); // logs a message to the console with the name of the new user
 });
 
-myEmitter.emit("newUserCreated", { name: "John Doe" }); // emits the "newUserCreated" event with a user object as an argument, which triggers the callback function and logs the message to the console
+myEmitter.emit("newUserCreated", { name: "John Doe" }); // emits the "newUserCreated" event with a user object as an argument, which triggers the callback function and logs the message to the console */
 
 
 
 // F
-
+/*
 server.on("request", (req, res) => {
     let rs = fs.createReadStream('./files/input.txt', 'utf-8'); // creates a readable stream from the largefile.txt file
 
@@ -139,4 +139,14 @@ server.on("request", (req, res) => {
     rs.on("end", () => { // listens for the "end" event on the readable stream and executes the callback function when the end of the file is reached
         res.end(); // ends the response to the client, indicating that all data has been sent
     });
-}); // listens for incoming requests to the server and executes the callback function when a request is received
+}); // listens for incoming requests to the server and executes the callback function when a request is received */
+
+
+// G
+
+/* server.on("request", (req, res) => {
+    let rs = fs.createReadStream('./files/input.txt', 'utf-8'); // creates a readable stream from the input.txt file
+
+    rs.pipe(res); // pipes the readable stream to the response object, which sends the data to the client
+
+}); // listens for incoming requests to the server and executes the callback function when a request is received */
