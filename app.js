@@ -150,3 +150,50 @@ server.on("request", (req, res) => {
     rs.pipe(res); // pipes the readable stream to the response object, which sends the data to the client
 
 }); // listens for incoming requests to the server and executes the callback function when a request is received */
+
+// Main tread
+con/* sole.log("Progress has started"); // logs a message to the console indicating that the end of the file has been reached
+
+// 1 Phase
+setTimeout(() => {
+    console.log("Progress is in progress..."); // logs a message to the console indicating that the end of the file has been reached
+}, 0);
+
+// 2 Phase 
+fs.readFile('./files/input.txt', 'utf-8', (err, data) => { // reads the content of the file asynchronously and returns it as a string
+    console.log("Read file is completed"); // prints the content of the file to the console
+
+    // 1 Phase
+    setTimeout(() => {
+        console.log("Second Progress is in progress..."); // logs a message to the console indicating that the end of the file has been reached
+    }, 0);
+
+    // 3 Phase
+    setImmediate(() => {
+        console.log("Second Progress is immediate..."); // logs a message to the console indicating that the end of the file has been reached
+    });
+
+    process.nextTick(() => {
+        console.log("Second Progress is next tick..."); // logs a message to the console indicating that the end of the file has been reached
+    });
+});
+
+// 3 Phase
+setImmediate(() => {
+    console.log("Progress is immediate..."); // logs a message to the console indicating that the end of the file has been reached
+});
+
+// Main tread
+console.log("Progress has completed"); // logs a message to the console indicating that the end of the file has been reached    
+ */
+// below is output of the above code
+//
+// Progress has started
+// Progress has completed
+// Server is started!
+// Progress is in progress...
+// Progress is immediate...
+// Read file is completed
+// Second Progress is next tick...
+// Second Progress is immediate...
+// Second Progress is in progress...
